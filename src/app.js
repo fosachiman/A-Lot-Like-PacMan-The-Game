@@ -44,32 +44,36 @@ class PacMan extends Character {
   }
 }
 
-const pacMan = new PacMan('30px', '30px', '5s', true, true);
-
+const pacMan = new PacMan('30px', '30px', 5, true, true);
 
 const pacManDiv = document.querySelector('#pac-man');
 
 pacMan.leftPos = 0;
 pacMan.topPos = 0;
 
+//LETS MAKE PACMAN MOVE BABY!
 
 function initiateEventListeners () {
   window.addEventListener('keydown', move);
 }
 function move(e) {
-  if (e.keyCode === 39)
+  if (e.keyCode === 39 && pacMan.direction !== 'right')
     moveRight();
-  else if (e.keyCode === 38)
+  else if (e.keyCode === 38 && pacMan.direction !== 'up') {
     moveUp();
-  else if (e.keyCode === 37)
+  }
+  else if (e.keyCode === 37 && pacMan.direction !== 'left') {
     moveLeft();
-  else if (e.keyCode === 40)
+  }
+  else if (e.keyCode === 40 && pacMan.direction !== 'down') {
     moveDown();
+  }
 }
 function moveRight () {
-  let animate = setInterval(start, 5);
+  pacMan.direction = 'right';
+  let animate = setInterval(start, pacMan.speed);
   function start () {
-    if (pacMan.leftPos >= 670)
+    if (pacMan.leftPos >= 670 || pacMan.direction === 'left')
       clearInterval(animate);
     else {
       pacMan.leftPos++;
@@ -78,9 +82,10 @@ function moveRight () {
   }
 }
 function moveDown () {
-  let animate = setInterval(start, 5);
+  pacMan.direction = 'down';
+  let animate = setInterval(start, pacMan.speed);
   function start () {
-    if (pacMan.topPos >= 570)
+    if (pacMan.topPos >= 570 || pacMan.direction === 'up')
       clearInterval(animate);
     else {
       pacMan.topPos++;
@@ -89,9 +94,10 @@ function moveDown () {
   }
 }
 function moveLeft () {
-  let animate = setInterval(start, 5);
+  pacMan.direction = 'left';
+  let animate = setInterval(start, pacMan.speed);
   function start () {
-    if (pacMan.leftPos <= 0)
+    if (pacMan.leftPos <= 0 || pacMan.direction === 'right')
       clearInterval(animate);
     else {
       pacMan.leftPos--;
@@ -100,9 +106,10 @@ function moveLeft () {
   }
 }
 function moveUp () {
-  let animate = setInterval(start, 5);
+  pacMan.direction = 'up';
+  let animate = setInterval(start, pacMan.speed);
   function start () {
-    if (pacMan.topPos <= 0)
+    if (pacMan.topPos <= 0 || pacMan.direction === 'down')
       clearInterval(animate);
     else {
       pacMan.topPos--;
