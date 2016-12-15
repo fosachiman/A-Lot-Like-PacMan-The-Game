@@ -57,24 +57,27 @@ function initiateEventListeners () {
   window.addEventListener('keydown', move);
 }
 function move(e) {
-  if (e.keyCode === 39 && pacMan.direction !== 'right')
+  if (e.keyCode === 39 && pacMan.movingRight !== true)
     moveRight();
-  else if (e.keyCode === 38 && pacMan.direction !== 'up') {
+  else if (e.keyCode === 38 && pacMan.movingUp !== true) {
     moveUp();
   }
-  else if (e.keyCode === 37 && pacMan.direction !== 'left') {
+  else if (e.keyCode === 37 && pacMan.movingLeft !== true) {
     moveLeft();
   }
-  else if (e.keyCode === 40 && pacMan.direction !== 'down') {
+  else if (e.keyCode === 40 && pacMan.movingDown !== true) {
     moveDown();
   }
 }
 function moveRight () {
-  pacMan.direction = 'right';
+  pacMan.movingRight = true;
   let animate = setInterval(start, pacMan.speed);
   function start () {
-    if (pacMan.leftPos >= 670 || pacMan.direction === 'left')
+    if (pacMan.leftPos >= 670 || pacMan.movingLeft === true){
+      pacMan.movingRight = false;
       clearInterval(animate);
+      return null;
+    }
     else {
       pacMan.leftPos++;
       pacManDiv.style.left = pacMan.leftPos + 'px';
@@ -82,11 +85,14 @@ function moveRight () {
   }
 }
 function moveDown () {
-  pacMan.direction = 'down';
+  pacMan.movingDown = true;
   let animate = setInterval(start, pacMan.speed);
   function start () {
-    if (pacMan.topPos >= 570 || pacMan.direction === 'up')
+    if (pacMan.topPos >= 570 || pacMan.movingUp === true) {
+      pacMan.movingDown = false;
       clearInterval(animate);
+      return null;
+    }
     else {
       pacMan.topPos++;
       pacManDiv.style.top = pacMan.topPos + 'px';
@@ -94,11 +100,14 @@ function moveDown () {
   }
 }
 function moveLeft () {
-  pacMan.direction = 'left';
+  pacMan.movingLeft = true;
   let animate = setInterval(start, pacMan.speed);
   function start () {
-    if (pacMan.leftPos <= 0 || pacMan.direction === 'right')
+    if (pacMan.leftPos <= 0 || pacMan.movingRight === true) {
+      pacMan.movingLeft = false;
       clearInterval(animate);
+      return null;
+    }
     else {
       pacMan.leftPos--;
       pacManDiv.style.left = pacMan.leftPos + 'px';
@@ -106,18 +115,19 @@ function moveLeft () {
   }
 }
 function moveUp () {
-  pacMan.direction = 'up';
+  pacMan.movingUp = true;
   let animate = setInterval(start, pacMan.speed);
   function start () {
-    if (pacMan.topPos <= 0 || pacMan.direction === 'down')
+    if (pacMan.topPos <= 0 || pacMan.movingDown === true) {
+      pacMan.movingUp = false;
       clearInterval(animate);
+      return null;
+    }
     else {
       pacMan.topPos--;
       pacManDiv.style.top = pacMan.topPos + 'px';
     }
   }
 }
-
-
 
 initiateEventListeners();
