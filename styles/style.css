@@ -1,0 +1,29 @@
+.game-board {
+  width: 700px;
+  height: 600px;
+  background-color: black;
+  margin: 5px auto;
+  position: relative;
+}
+
+.pac-man {
+  width: 30px;
+  height: 30px;
+  background-color: gray;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+
+@keyframes right {
+  100% {left: 700px;}
+}
+@keyframes up {
+  100% {bottom: 700px;}
+}
+@keyframes left {
+  100% {right: 700px;}
+}
+@keyframes down {
+  100% {top: 700px;}
+}
