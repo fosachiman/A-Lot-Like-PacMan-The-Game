@@ -14,16 +14,3 @@
   left: 0px;
   top: 0px;
 }
-
-@keyframes right {
-  100% {left: 700px;}
-}
-@keyframes up {
-  100% {bottom: 700px;}
-}
-@keyframes left {
-  100% {right: 700px;}
-}
-@keyframes down {
-  100% {top: 700px;}
-}

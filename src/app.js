@@ -31,21 +31,27 @@ class Character {
   constructor(height, width, speed, canBeEaten, eatsDots){
     this.height = height;
     this.width = width;
-    this.speed = speed;
+    this.speed = speed; //seconds it takes to get across the screen
     this.canBeEaten = canBeEaten;
     this.hitBox = width * .9;
     this.eatsDots = eatsDots;
   }
 }
 
-let pacMan = new Character('30px', '30px', '5s', true, true);
+class PacMan extends Character {
+  constructor(height, width, speed, canBeEaten, eatsDots) {
+    super(height, width, speed, canBeEaten, eatsDots)
+  }
+}
+
+const pacMan = new PacMan('30px', '30px', '5s', true, true);
 
 
-let pacManDiv = document.querySelector('#pac-man');
+const pacManDiv = document.querySelector('#pac-man');
 
-let topPos = pacManDiv.offsetTop;
-let leftPos = pacManDiv.offSetLeft;
-console.log(topPos);
+pacMan.leftPos = 0;
+pacMan.topPos = 0;
+
 
 function initiateEventListeners () {
   window.addEventListener('keydown', move);
@@ -53,24 +59,58 @@ function initiateEventListeners () {
 function move(e) {
   if (e.keyCode === 39)
     moveRight();
-  else if (e.keyCode === 40)
+  else if (e.keyCode === 38)
     moveUp();
   else if (e.keyCode === 37)
     moveLeft();
-  else if (e.keyCode === 38)
+  else if (e.keyCode === 40)
     moveDown();
 }
 function moveRight () {
-  pacManDiv.style.animation = 'right ' + pacMan.speed + ' linear forwards';
-}
-function moveUp () {
-  pacManDiv.style.animation = 'up ' + pacMan.speed + ' linear forwards';
-}
-function moveLeft () {
-  pacManDiv.style.animation = 'left ' + pacMan.speed + ' linear forwards';
+  let animate = setInterval(start, 5);
+  function start () {
+    if (pacMan.leftPos >= 670)
+      clearInterval(animate);
+    else {
+      pacMan.leftPos++;
+      pacManDiv.style.left = pacMan.leftPos + 'px';
+    }
+  }
 }
 function moveDown () {
-  pacManDiv.style.animation = 'down ' + pacMan.speed + ' linear forwards';
+  let animate = setInterval(start, 5);
+  function start () {
+    if (pacMan.topPos >= 570)
+      clearInterval(animate);
+    else {
+      pacMan.topPos++;
+      pacManDiv.style.top = pacMan.topPos + 'px';
+    }
+  }
 }
+function moveLeft () {
+  let animate = setInterval(start, 5);
+  function start () {
+    if (pacMan.leftPos <= 0)
+      clearInterval(animate);
+    else {
+      pacMan.leftPos--;
+      pacManDiv.style.left = pacMan.leftPos + 'px';
+    }
+  }
+}
+function moveUp () {
+  let animate = setInterval(start, 5);
+  function start () {
+    if (pacMan.topPos <= 0)
+      clearInterval(animate);
+    else {
+      pacMan.topPos--;
+      pacManDiv.style.top = pacMan.topPos + 'px';
+    }
+  }
+}
+
+
 
 initiateEventListeners();
