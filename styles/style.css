@@ -1,5 +1,5 @@
 .game-board {
-  width: 700px;
+  width: 702px;
   height: 600px;
   background-color: black;
   margin: 5px auto;
@@ -13,4 +13,10 @@
   position: absolute;
   left: 0px;
   top: 0px;
+}
+.box {
+  box-sizing: border-box;
+  display: inline-block;
+  color: white;
+  text-align: center;
 }

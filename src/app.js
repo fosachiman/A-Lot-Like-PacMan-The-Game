@@ -25,26 +25,24 @@
 //figure out animation of pacman going through tunnel
 
 //maybe get the gameboard built first?
-console.log('hello');
 
 class Character {
   constructor(height, width, speed, canBeEaten, eatsDots){
     this.height = height;
     this.width = width;
-    this.speed = speed; //seconds it takes to get across the screen
+    this.speed = speed; //milliseconds it takes to move on pixel
     this.canBeEaten = canBeEaten;
     this.hitBox = width * .9;
     this.eatsDots = eatsDots;
   }
 }
-
 class PacMan extends Character {
   constructor(height, width, speed, canBeEaten, eatsDots) {
     super(height, width, speed, canBeEaten, eatsDots)
   }
 }
 
-const pacMan = new PacMan('30px', '30px', 5, true, true);
+const pacMan = new PacMan('30px', '30px', 10, true, true);
 
 const pacManDiv = document.querySelector('#pac-man');
 
@@ -131,3 +129,11 @@ function moveUp () {
 }
 
 initiateEventListeners();
+
+
+
+
+
+
+
+
