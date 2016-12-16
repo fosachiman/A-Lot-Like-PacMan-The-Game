@@ -7,8 +7,8 @@
 }
 
 .pac-man {
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
   background-color: gray;
   position: absolute;
   left: 0px;
@@ -19,4 +19,5 @@
   display: inline-block;
   color: white;
   text-align: center;
+  vertical-align: top;
 }

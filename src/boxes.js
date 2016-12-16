@@ -14,121 +14,884 @@ class Box {
 
 boxArray = [];
 
-let box1 = new Box (false, true, true);
-box1.push(boxArray);
+function createBox (hasDot, hasRightWall, hasLeftWall){
+  let box = new Box (hasDot, hasRightWall, hasLeftWall);
+  box.push(boxArray);
+}
+
+createBox (false, true, true);
 
 for (let i = 0; i < 25; i++){
-  let box = new Box (false, false, true);
-  box.push(boxArray);
+  createBox (false, false, true);
 }
 
-let box27 = new Box (false, true, true);
-box27.push(boxArray);
+createBox (false, true, true);
 
-let box28 = new Box (false, true, false);
-box28.push(boxArray);
+createBox (false, true, false);
 
-let box29 = new Box (true, false, false);
-box29.push(boxArray);
+createBox (true, false, false);
 
 for (let i = 0; i < 4; i++){
-  let box = new Box (true, false, true);
-  box.push(boxArray)
+createBox (true, false, true);
 }
-let box34 = new Box (true, true, false);
-box34.push(boxArray);
 
-let box35 = new Box (false, false, false);
-box35.push(boxArray);
+createBox (true, true, false);
 
-let box36 = new Box (false, true, false);
-box36.push(boxArray);
+createBox (false, false, false);
 
-let box37 = new Box (true, false, false);
-box37.push(boxArray);
+createBox (false, true, false);
+
+createBox (true, false, false);
 
 for (let i = 0; i < 8; i++){
-  let box = new Box (true, false, true);
-  box.push(boxArray);
+createBox (true, false, true);
 }
 
-let box46 = new Box (true, true, false);
-box46.push(boxArray);
+createBox (true, true, false);
 
-let box47 = new Box (false, false, false);
-box47.push(boxArray);
+createBox (false, false, false);
 
-let box48 = new Box (false, true, false);
-box48.push(boxArray);
+createBox (false, true, false);
 
-let box49 = new Box (true, false, false);
-box49.push(boxArray);
+createBox (true, false, false);
 
 for (let i = 0; i < 4; i++){
-  let box = new Box (true, false, true);
-  box.push(boxArray);
+  createBox (true, false, true);
 }
-let box54 = new Box (true, true, false);
-box54.push(boxArray);
+createBox (true, true, false);
 
-let box55 = new Box (false, true, false);
-box55.push(boxArray);
+createBox (false, true, false);
 
-let box56 = new Box (true, true, false);
-box56.push(boxArray);
+createBox (true, true, false);
 
 for (let i = 0; i < 3; i++){
-  let box = new Box (false, false, false);
-  box.push(boxArray)
+createBox (false, false, false);
 }
 
-let box60 = new Box (false, true, false);
-box60.push(boxArray);
+createBox (false, true, false);
 
-let box61 = new Box (true, true, false);
-box61.push(boxArray);
+createBox (true, true, false);
 
-let box62 = new Box (false, false, false);
-box62.push(boxArray);
+createBox (false, false, false);
 
-let box63 = new Box (false, true, false);
-box63.push(boxArray);
+createBox (false, true, false);
 
-let box64 = new Box (true, true, false);
-box64.push(boxArray);
+createBox (true, true, false);
 
-for (let i = 0; i < 8; i++){
-  let box = new Box (false, false, false);
-  box.push(boxArray);
+for (let i = 0; i < 7; i++){
+createBox (false, false, false);
 }
 
-let box73 = new Box (true, true, false);
-box73.push(boxArray);
+createBox (false, true, false)
 
-let box74 = new Box (false, false, false);
-box74.push(boxArray);
+createBox (true, true, false);
 
-let box75 = new Box (false, true, false);
-box75.push(boxArray);
+createBox (false, false, false);
 
-let box76 = new Box (true, true, false);
-box76.push(boxArray);
+createBox (false, true, false);
+
+createBox (true, true, false);
 
 for (let i = 0; i < 3; i++){
-  let box = new Box (false, false, false);
-  box.push(boxArray);
+createBox (false, false, false);
 }
 
-let box80 = new Box (false, true, false);
-box80.push(boxArray);
+createBox (false, true, false);
 
-let box81 = new Box (true, true, false);
-box81.push(boxArray);
+createBox (true, true, false);
 
-let box82 = new Box (false, true, false);
-box82.push(boxArray);
+createBox (false, true, false);
 
-let box83 = new Box ()
+createBox (true, true, false);
+
+for (let i = 0; i < 3; i++){
+createBox (false, false, true);
+}
+
+createBox (false, true, true);
+
+createBox (true, true, false);
+
+createBox (false, false, true)
+
+createBox (false, true, true);
+
+createBox (true, true, false);
+
+for (let i = 0; i < 7; i++){
+  createBox (false, false, true);
+}
+createBox (false, true, true);
+
+createBox (true, true, false);
+
+createBox (false, false, true);
+
+createBox (false, true, true);
+
+createBox (true, true, false);
+
+for (let i = 0; i < 3; i++){
+  createBox (false, false, true);
+}
+
+createBox (false, true, true);
+
+createBox (true, true, false);
+
+createBox (false, true, true);
+
+for (let i = 0; i < 2; i++) {
+  createBox (true, false, true);
+}
+
+createBox (true, false, false);
+
+for (let i = 0; i < 2; i++) {
+  createBox (true, false, true);
+}
+
+createBox(true, false, false);
+
+for (let i = 0; i < 5; i++) {
+  createBox (true, false, true);
+}
+
+createBox(true, false, false);
+
+for (let i = 0; i < 2; i++) {
+  createBox (true, false, true);
+}
+
+createBox(true, false, false);
+
+for (let i = 0; i < 5; i++) {
+  createBox (true, false, true);
+}
+
+createBox(true, false, false);
+
+for (let i = 0; i < 2; i++) {
+  createBox (true, false, true);
+}
+
+createBox(true, false, false);
+
+createBox(true, false, true);
+
+createBox (true, true, true);
+
+for (let i = 0; i < 2; i++) {
+  createBox (false, false, false);
+}
+
+createBox (false, true, false);
+
+createBox (true, true, false);
+
+createBox (false, false, false);
+
+createBox (false, true, false);
+
+createBox (true, true, false);
+
+for (let i = 0; i < 4; i++) {
+  createBox (false, false, false);
+}
+
+createBox (false, true, false);
+
+createBox (true, true, false);
+
+createBox (false, false, false);
+
+createBox (false, true, false);
+
+createBox (true, true, false);
+
+for (let i = 0; i < 4; i++) {
+  createBox (false, false, false);
+}
+
+createBox (false, true, false);
+
+createBox (true, true, false);
+
+createBox (false, false, false);
+
+createBox (false, true, false);
+
+createBox (true, true, false);
+
+createBox (false, false, false);
+
+createBox (false, true, false);
+
+for (let i = 0; i < 2; i++) {
+  createBox (false, false, false);
+}
+
+createBox (false, true, false);
+
+createBox (true, true, false);
+
+createBox (false, false, false);
+
+createBox (false, true, false);
+
+createBox (true, true, false);
+
+for (let i = 0; i < 4; i++) {
+  createBox (false, false, false);
+}
+
+createBox (false, true, false);
+
+createBox (true, true, false);
+
+createBox (false, false, false);
+
+createBox (false, true, false);
+
+createBox (true, true, false);
+
+for (let i = 0; i < 4; i++) {
+  createBox (false, false, false);
+}
+
+createBox (false, true, false);
+
+createBox (true, true, false);
+
+createBox (false, false, false);
+
+createBox (false, true, false);
+
+createBox (true, true, false);
+
+for (let i = 0; i < 2; i++) {
+  createBox (false, false, false);
+}
+
+for (let i = 0; i < 2; i++) {
+  createBox (false, false, true);
+}
+
+createBox (false, true, true);
+
+createBox (true, true, false);
+
+createBox (false, false, false);
+
+createBox (false, true, false);
+
+createBox (true, true, false);
+
+for (let i = 0; i < 4; i++) {
+  createBox (false, false, true);
+}
+
+createBox (false, true, true);
+
+createBox (true, true, false);
+
+createBox (false, false, false);
+
+createBox (false, true, false);
+
+createBox (true, true, false);
+
+for (let i = 0; i < 4; i++) {
+  createBox (false, false, true);
+}
+
+createBox (false, true, true);
+
+createBox (true, true, false);
+
+createBox (false, false, false);
+
+createBox (false, true, false);
+
+createBox (true, true, false);
+
+for (let i = 0; i < 2; i++) {
+  createBox (false, false, true);
+}
+
+for (let i = 0; i < 3; i++) {
+  createBox (false, false, true);
+}
+
+createBox (true, true, false);
+
+createBox (false, false, false);
+
+createBox (false, true, false);
+
+for (let i = 0; i < 3; i++) {
+  createBox (true, false, true);
+}
+
+createBox (true, false, false);
+
+for (let i = 0; i < 2; i++) {
+  createBox (true, false, true);
+}
+
+createBox (true, true, true);
+
+createBox (false, false, false);
+
+createBox (false, true, false);
+
+for (let i = 0; i < 3; i++) {
+  createBox (true, false, true);
+}
+
+createBox (true, false, false);
+
+for (let i = 0; i < 2; i++) {
+  createBox (true, false, true);
+}
+
+createBox (true, true, true);
+
+createBox (false, false, false);
+
+createBox (false, true, false);
+
+createBox (true, false, false);
+
+for (let i = 0; i < 2; i++) {
+  createBox (false, false, true);
+}
+
+for (let i = 0; i < 2; i++) {
+  createBox (false, false, false);
+}
+
+createBox(false, true, false);
+
+createBox (true, true, false);
+
+for (let i = 0; i < 4; i++) {
+  createBox (false, false, true);
+}
+
+createBox (false, true, true);
+
+createBox (false, true, false);
+
+for (let i = 0; i < 7; i++) {
+  createBox (false, false, true);
+}
+
+createBox (false, true, true);
+
+createBox (false, true, false);
+
+for (let i = 0; i < 4; i++) {
+  createBox (false, false, true);
+}
+
+createBox (false, true, true);
+
+createBox (true, true, false);
+
+for (let i = 0; i < 2; i++) {
+  createBox (false, false, false);
+}
+
+//ROWS 1-10 ABOVE
+
+for (let i = 0; i < 2; i++) {
+  createBox (false, false, false);
+}
+
+createBox (false, true, false);
+
+createBox (true, false, false);
+
+for (let i = 0; i < 5; i++) {
+  createBox (false, false, true);
+}
+
+createBox (false, false, false);
+
+for (let i = 0; i < 3; i++) {
+  createBox (false, false, true);
+}
+
+for (let i = 0; i < 2; i++) {
+  createBox (false, false, false);
+}
+
+for (let i = 0; i < 3; i++) {
+  createBox (false, false, true);
+}
+
+
+createBox (false, false, false);
+
+for (let i = 0; i < 5; i++) {
+  createBox (false, false, true);
+}
+
+createBox (true, true, false);
+
+for (let i = 0; i < 2; i++) {
+  createBox (false, false, false);
+}
+
+for (let i = 0; i < 2; i++) {
+  createBox (false, false, false);
+}
+
+createBox (false, true, false);
+
+createBox (true, true, false);
+
+for (let i = 0; i < 4; i++) {
+  createBox (false, false, false);
+}
+
+createBox (false, true, false);
+
+createBox (false, true, false);
+
+for (let i = 0; i < 7; i++) {
+  createBox (false, false, false);
+}
+
+createBox (false, true, false);
+
+createBox (false, true, false);
+
+for (let i = 0; i < 4; i++) {
+  createBox (false, false, false);
+}
+
+
+createBox (false, true, false);
+
+createBox (true, true, false);
+
+for (let i = 0; i < 2; i++) {
+  createBox (false, false, false);
+}
+
+for (let i = 0; i < 2; i++) {
+  createBox (false, false, false);
+}
+
+createBox (false, true, false);
+
+createBox (true, true, false);
+
+createBox (false, false, false);
+
+createBox (false, false, false);
+
+
+for (let i = 0; i < 2; i++) {
+  createBox (false, false, true);
+}
+
+createBox (false, true, true);
+
+createBox (false, true, false);
+
+for (let i = 0; i < 7; i++) {
+  createBox (false, false, false);
+}
+
+createBox (false, true, false);
+
+createBox (false, true, false);
+
+for (let i = 0; i < 3; i++) {
+  createBox (false, false, true);
+}
+
+createBox (false, false, false);
+
+createBox (false, true, false);
+
+createBox (true, true, false);
+
+for (let i = 0; i < 2; i++) {
+  createBox (false, false, false);
+}
+
+for (let i = 0; i < 2; i++) {
+  createBox (false, false, false);
+}
+
+createBox (false, true, false);
+
+createBox (true, true, false);
+
+createBox (false, false, false);
+
+createBox (false, true, false);
+
+for (let i = 0; i < 3; i++) {
+  createBox (false, false, false);
+}
+
+createBox (false, true, false);
+
+for (let i = 0; i < 7; i++) {
+  createBox (false, false, false);
+}
+
+createBox (false, true, false);
+
+for (let i = 0; i < 3; i++) {
+  createBox (false, false, false);
+}
+createBox (false, true, false);
+
+createBox (false, false, false);
+
+createBox (false, true, false);
+
+createBox (true, true, false);
+
+for (let i = 0; i < 2; i++) {
+  createBox (false, false, false);
+}
+
+for (let i = 0; i < 2; i++) {
+  createBox (false, false, false);
+}
+
+createBox (false, true, false);
+
+createBox (true, true, false);
+
+createBox (false, false, false);
+
+createBox (false, true, false);
+
+createBox (false, true, false);
+
+createBox (false, false, false);
+
+createBox (false, true, false);
+
+createBox (false, true, false);
+
+for (let i = 0; i < 7; i++) {
+  createBox (false, false, false);
+}
+
+createBox (false, true, false);
+
+createBox (false, true, false);
+
+createBox (false, false, false);
+
+createBox (false, true, false);
+
+createBox (false, true, false);
+
+createBox (false, false, false);
+
+createBox (false, true, false);
+
+createBox (true, true, false);
+
+for (let i = 0; i < 2; i++) {
+  createBox (false, false, false);
+}
+
+for (let i = 0; i < 2; i++) {
+  createBox (false, false, false);
+}
+
+createBox (false, true, false);
+
+createBox (true, true, false);
+
+createBox (false, false, false);
+
+createBox (false, true, false);
+
+createBox (false, true, false);
+
+createBox (false, false, false);
+
+createBox (false, true, false);
+
+createBox (false, true, false);
+
+for (let i = 0; i < 7; i++) {
+  createBox (false, false, true);
+}
+
+createBox (false, true, true);
+
+createBox (false, true, false);
+
+createBox (false, false, false);
+
+createBox (false, true, false);
+
+createBox (false, true, false);
+
+createBox (false, false, false);
+
+createBox (false, true, false);
+
+createBox (true, true, false);
+
+for (let i = 0; i < 2; i++) {
+  createBox (false, false, false);
+}
+
+for (let i = 0; i < 2; i++) {
+  createBox (false, false, true);
+}
+
+createBox(false, true, true);
+
+createBox (true, true, false);
+
+createBox (false, false, true);
+
+createBox (false, true, true);
+
+createBox (false, true, false);
+
+createBox (false, false, false);
+
+createBox (false, true, false);
+
+for (let i = 0; i < 3; i++) {
+  createBox (false, false, true);
+}
+
+createBox (false, false, false);
+
+createBox (false, false, true);
+
+createBox (false, false, true);
+
+createBox (false, false, false);
+
+for (let i = 0; i < 2; i++) {
+  createBox (false, false, true);
+}
+
+createBox (false, true, true);
+
+createBox (false, false, false);
+
+createBox (false, true, false);
+
+createBox (false, true, false);
+
+createBox (false, false, false);
+
+createBox (false, true, false);
+
+createBox (true, true, false);
+
+for (let i = 0; i < 2; i++) {
+  createBox (false, false, true);
+}
+
+///////ROW 17 DONE
+
+for (let i = 0; i < 3; i++) {
+  createBox (false, false, true);
+}
+
+createBox (true, false, false);
+
+for (let i = 0; i < 2; i++) {
+  createBox (false, false, true);
+}
+
+createBox (false, true, true);
+
+for (let i = 0; i < 4; i++) {
+  createBox (false, false, false);
+}
+
+createBox (false, true, false);
+
+createBox (false, true, false);
+
+createBox (false, false, false);
+
+createBox (false, true, false);
+
+createBox (false, true, false);
+
+for (let i = 0; i < 4; i++) {
+  createBox (false, false, false);
+}
+
+createBox (false, true, false);
+
+createBox (false, true, false);
+
+createBox (false, false, true);
+
+createBox (false, true, true);
+
+createBox (true, false, false);
+
+for (let i = 0; i < 2; i++) {
+  createBox (false, false, true);
+}
+
+for (let i = 0; i < 2; i++) {
+  createBox (false, false, true);
+}
+
+createBox (false, true, true);
+
+createBox (true, true, false);
+
+for (let i = 0; i < 7; i++) {
+  createBox (false, false, true);
+}
+
+createBox (false, true, true);
+
+createBox (false, true, false);
+
+createBox (false, false, true);
+
+createBox (false, true, true);
+
+createBox (false, true, false);
+
+for (let i = 0; i < 4; i++) {
+  createBox (false, false, true);
+}
+
+createBox (false, true, true);
+
+createBox (false, false, false);
+
+for (let i = 0; i < 2; i++) {
+  createBox (false, false, true);
+}
+
+createBox (true, true, false);
+
+for (let i = 0; i < 2; i++) {
+  createBox (false, false, true);
+}
+
+createBox (false, true, false);
+
+createBox (true, false, false);
+
+createBox (true, false, true);
+
+createBox (true, false, false);
+
+for (let i = 0; i < 4; i++) {
+  createBox (true, false, true);
+}
+
+createBox (true, false, false);
+
+for (let i = 0; i < 3; i++) {
+  createBox (true, false, true);
+}
+
+createBox (true, false, false);
+
+for (let i = 0; i < 2; i++) {
+  createBox (true, false, true);
+}
+
+createBox (true, false, false);
+
+for (let i = 0; i < 5; i++) {
+  createBox (true, false, true);
+}
+
+createBox (true, true, false);
+
+createBox (false, false, false);
+
+createBox (false, true, false);
+
+for (let i = 0; i < 2; i++) {
+  createBox (true, false, true);
+}
+
+createBox (true, true, false);
+
+createBox (false, true, false);
+
+createBox (true, true, false);
+
+createBox (false, true, true);
+
+createBox (true, true, false);
+
+for (let i = 0; i < 3; i++) {
+  createBox (false, false, true);
+}
+
+createBox (false, true, true);
+
+createBox (true, true, false);
+
+for (let i = 0; i < 2; i++) {
+  createBox (false, false, true);
+}
+
+createBox (false, true, true);
+
+createBox (true, true, false);
+
+createBox (false, false, true);
+
+createBox (false, true, true);
+
+createBox (true, true, false);
+
+for (let i = 0; i < 4; i++) {
+  createBox (false, false, true);
+}
+
+createBox (false, true, true);
+
+createBox (true, true, false);
+
+for (let i = 0; i < 3; i++) {
+  createBox (false, false, true);
+}
+
+createBox (false, true, true);
+
+createBox (true, true, false);
+
+createBox (false, true, false);
+
+for (let i = 0; i < 25; i++) {
+  createBox (true, false, true);
+}
+
+createBox (true, true, true);
+
+//BOARD FIXES
+
+boxArray[358].hasBottomWall = true;
+boxArray[359].hasBottomWall = true;
+boxArray[370].hasBottomWall = true;
+boxArray[371].hasBottomWall = true;
+
 
 console.log(boxArray);
 
@@ -138,7 +901,7 @@ function createMap () {
     let boxEl = document.createElement('div');
     boxEl.className = 'box';
     gameBoard.appendChild(boxEl);
-    boxEl.style.height = '20px';
+    boxEl.style.height = '26px';
     boxEl.style.width = '26px';
     if (boxArray[i].hasDot === true)
       boxEl.innerHTML = '.';
