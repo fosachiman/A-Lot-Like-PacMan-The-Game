@@ -24,7 +24,11 @@
 //store the keypress so pacman knows the next opportunity to go through the box
 //figure out animation of pacman going through tunnel
 
-//maybe get the gameboard built first?
+//COLLISION DETECTION
+//let's say pacman is on row 2,  that means he'd be between y30 and y60 hypothetically
+//Pacman can't move down unless he is perfectly in a column and he can't move left/right unless he is perfectly in a row
+//Grid is 27 width x 22 height
+
 
 class Character {
   constructor(height, width, speed, canBeEaten, eatsDots){
@@ -46,8 +50,8 @@ const pacMan = new PacMan('30px', '30px', 10, true, true);
 
 const pacManDiv = document.querySelector('#pac-man');
 
-pacMan.leftPos = 0;
-pacMan.topPos = 0;
+pacMan.leftPos = 351;
+pacMan.topPos = 416;
 
 //LETS MAKE PACMAN MOVE BABY!
 

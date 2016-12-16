@@ -892,8 +892,31 @@ boxArray[359].hasBottomWall = true;
 boxArray[370].hasBottomWall = true;
 boxArray[371].hasBottomWall = true;
 
+//Set Array column property:
 
-console.log(boxArray);
+//loop through array
+//for each item less than 22 in index, give it a 1
+//for each item between 22 and 44, give it a 2
+
+function assignColumnsAndRows () {
+  let j = 0;
+  let k = 27;
+  let l = 1;
+  while (l < 23) {
+    function inside () {
+      for (let i = j; i < k; i++){
+        boxArray[i].column = i + 1 + 27 - k;
+        boxArray[i].row = l;
+     }
+      j += 27;
+      k += 27;
+      l += 1;
+    }
+    inside ();
+  }
+}
+
+/// Function to create the map from the objects in the object array:
 
 function createMap () {
   let gameBoard = document.querySelector('#game-board');
@@ -913,5 +936,6 @@ function createMap () {
 }
 
 createMap();
+assignColumnsAndRows();
 
 
