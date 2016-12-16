@@ -31,27 +31,39 @@
 
 
 class Character {
-  constructor(height, width, speed, canBeEaten, eatsDots){
-    this.height = height;
-    this.width = width;
+  constructor(speed, canBeEaten, eatsDots, leftPos, topPos){
+
     this.speed = speed; //milliseconds it takes to move on pixel
     this.canBeEaten = canBeEaten;
-    this.hitBox = width * .9;
     this.eatsDots = eatsDots;
+    this.leftPos = leftPos;
+    this.topPos = topPos
   }
+  assignRow () {
+    if (this.topPos % 26 !== 0)
+      this.row = undefined;
+    else
+      this.row = (this.topPos / 26) + 1;
+    return this.row;
+  };
+  assignColumn () {
+    if (this.leftPos % 26 !== 0)
+      this.column = undefined;
+    else
+      this.column = (this.leftPos / 26) + 1;
+    return this.column;
+  };
 }
+
 class PacMan extends Character {
   constructor(height, width, speed, canBeEaten, eatsDots) {
     super(height, width, speed, canBeEaten, eatsDots)
   }
 }
 
-const pacMan = new PacMan('30px', '30px', 10, true, true);
-
+const pacMan = new PacMan(5, true, true, 338, 416);
 const pacManDiv = document.querySelector('#pac-man');
-
-pacMan.leftPos = 351;
-pacMan.topPos = 416;
+assignPosition();
 
 //LETS MAKE PACMAN MOVE BABY!
 
@@ -59,15 +71,18 @@ function initiateEventListeners () {
   window.addEventListener('keydown', move);
 }
 function move(e) {
-  if (e.keyCode === 39 && pacMan.movingRight !== true)
+  if (e.keyCode === 39 && pacMan.movingRight !== true && pacMan.row !== undefined && movingRightRowDetection() !== true) {
+    console.log(pacMan.row);
     moveRight();
-  else if (e.keyCode === 38 && pacMan.movingUp !== true) {
+  }
+  else if (e.keyCode === 38 && pacMan.movingUp !== true && pacMan.column !== undefined && movingUpColumnDetection() !== true) {
     moveUp();
   }
-  else if (e.keyCode === 37 && pacMan.movingLeft !== true) {
+  else if (e.keyCode === 37 && pacMan.movingLeft !== true && pacMan.row !== undefined && movingLeftRowDetection() !== true) {
     moveLeft();
   }
-  else if (e.keyCode === 40 && pacMan.movingDown !== true) {
+  else if (e.keyCode === 40 && pacMan.movingDown !== true && pacMan.column !== undefined && movingDownColumnDetection() !== true) {
+    console.log(pacMan.column);
     moveDown();
   }
 }
@@ -75,7 +90,12 @@ function moveRight () {
   pacMan.movingRight = true;
   let animate = setInterval(start, pacMan.speed);
   function start () {
-    if (pacMan.leftPos >= 670 || pacMan.movingLeft === true){
+    if (pacMan.movingLeft === true){
+      pacMan.movingRight = false;
+      clearInterval(animate);
+      return null;
+    }
+    else if (movingRightRowDetection() === true) {
       pacMan.movingRight = false;
       clearInterval(animate);
       return null;
@@ -83,6 +103,9 @@ function moveRight () {
     else {
       pacMan.leftPos++;
       pacManDiv.style.left = pacMan.leftPos + 'px';
+      pacMan.movingLeft = false;
+      pacMan.movingUp = false;
+      pacMan.movingDown = false;
     }
   }
 }
@@ -90,7 +113,12 @@ function moveDown () {
   pacMan.movingDown = true;
   let animate = setInterval(start, pacMan.speed);
   function start () {
-    if (pacMan.topPos >= 570 || pacMan.movingUp === true) {
+    if (pacMan.movingUp === true) {
+      pacMan.movingDown = false;
+      clearInterval(animate);
+      return null;
+    }
+    else if (movingDownColumnDetection() === true) {
       pacMan.movingDown = false;
       clearInterval(animate);
       return null;
@@ -98,6 +126,9 @@ function moveDown () {
     else {
       pacMan.topPos++;
       pacManDiv.style.top = pacMan.topPos + 'px';
+      pacMan.movingLeft = false;
+      pacMan.movingUp = false;
+      pacMan.movingRight = false;
     }
   }
 }
@@ -110,9 +141,17 @@ function moveLeft () {
       clearInterval(animate);
       return null;
     }
+    else if (movingLeftRowDetection() === true) {
+      pacMan.movingLeft = false;
+      clearInterval(animate);
+      return null;
+    }
     else {
       pacMan.leftPos--;
       pacManDiv.style.left = pacMan.leftPos + 'px';
+      pacMan.movingRight = false;
+      pacMan.movingUp = false;
+      pacMan.movingDown = false;
     }
   }
 }
@@ -125,19 +164,23 @@ function moveUp () {
       clearInterval(animate);
       return null;
     }
+    else if (movingUpColumnDetection() === true) {
+      pacMan.movingUp = false;
+      clearInterval(animate);
+      return null;
+    }
     else {
       pacMan.topPos--;
       pacManDiv.style.top = pacMan.topPos + 'px';
+      pacMan.movingRight = false;
+      pacMan.movingLeft = false;
+      pacMan.movingDown = false;
     }
   }
 }
 
+//assign row and column to pac man
+
 initiateEventListeners();
-
-
-
-
-
-
 
 

@@ -892,11 +892,7 @@ boxArray[359].hasBottomWall = true;
 boxArray[370].hasBottomWall = true;
 boxArray[371].hasBottomWall = true;
 
-//Set Array column property:
-
-//loop through array
-//for each item less than 22 in index, give it a 1
-//for each item between 22 and 44, give it a 2
+//Gives box objects a column and row property
 
 function assignColumnsAndRows () {
   let j = 0;
@@ -938,4 +934,7 @@ function createMap () {
 createMap();
 assignColumnsAndRows();
 
+
+
+console.log(boxArray[5].row);
 
