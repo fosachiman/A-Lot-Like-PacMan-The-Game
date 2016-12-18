@@ -922,6 +922,8 @@ function createMap () {
     gameBoard.appendChild(boxEl);
     boxEl.style.height = '26px';
     boxEl.style.width = '26px';
+    boxEl.setAttribute('row', boxArray[i].row);
+    boxEl.setAttribute('column', boxArray[i].column);
     if (boxArray[i].hasDot === true)
       boxEl.innerHTML = '.';
     if (boxArray[i].hasRightWall === true)
@@ -931,10 +933,6 @@ function createMap () {
   }
 }
 
-createMap();
 assignColumnsAndRows();
-
-
-
-console.log(boxArray[5].row);
+createMap();
 
