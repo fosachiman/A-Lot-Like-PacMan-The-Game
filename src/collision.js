@@ -1,6 +1,14 @@
 function assignPosition () {
   pacMan.assignRow();
   pacMan.assignColumn();
+  ghostOne.assignRow();
+  ghostOne.assignColumn();
+  ghostTwo.assignRow();
+  ghostTwo.assignColumn();
+  ghostThree.assignRow();
+  ghostThree.assignColumn();
+  ghostFour.assignRow();
+  ghostFour.assignColumn();
 }
 
 function movingRightRowDetection () {

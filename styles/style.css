@@ -21,3 +21,11 @@
   text-align: center;
   vertical-align: top;
 }
+.ghost {
+  border-top-left-radius: 40%;
+  border-top-right-radius: 40%;
+  background-color: pink;
+  width: 22px;
+  height: 22px;
+  position: absolute;
+}

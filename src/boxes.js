@@ -3,6 +3,7 @@ class Box {
     this.hasDot = hasDot;
     this.hasRightWall = hasRightWall;
     this.hasBottomWall = hasBottomWall;
+    this.hasBigDot = false;
   }
   push (arr) {
     arr.push(this);
@@ -891,7 +892,10 @@ boxArray[358].hasBottomWall = true;
 boxArray[359].hasBottomWall = true;
 boxArray[370].hasBottomWall = true;
 boxArray[371].hasBottomWall = true;
-
+boxArray[55].hasBigDot = true;
+boxArray[80].hasBigDot = true;
+boxArray[541].hasBigDot = true;
+boxArray[566].hasBigDot = true;
 //Gives box objects a column and row property
 
 function assignColumnsAndRows () {
@@ -926,6 +930,8 @@ function createMap () {
     boxEl.setAttribute('column', boxArray[i].column);
     if (boxArray[i].hasDot === true)
       boxEl.innerHTML = '.';
+    if (boxArray[i].hasBigDot === true)
+      boxEl.innerHTML = '&#x25c9';
     if (boxArray[i].hasRightWall === true)
       boxEl.style.borderRight = '1px solid white'
     if (boxArray[i].hasBottomWall === true)

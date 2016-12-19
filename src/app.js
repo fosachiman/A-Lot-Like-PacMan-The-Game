@@ -31,7 +31,7 @@
 
 
 class Character {
-  constructor(speed, canBeEaten, eatsDots, leftPos, topPos){
+  constructor(speed, leftPos, topPos, canBeEaten){
 
     this.speed = speed; //milliseconds it takes to move one pixel
     this.canBeEaten = canBeEaten;
@@ -61,13 +61,33 @@ class Character {
 }
 
 class PacMan extends Character {
-  constructor(height, width, speed, leftPos, topPos, canBeEaten) {
-    super(height, width, speed, leftPos, topPos, canBeEaten)
+  constructor(speed, leftPos, topPos, canBeEaten) {
+    super(speed, leftPos, topPos, canBeEaten)
   }
 }
 
-const pacMan = new PacMan(10, true, true, 338, 416, true);
+class Ghost extends Character {
+  constructor (speed, leftPos, topPos, canBeEaten, ghostDiv) {
+    super (speed, leftPos, topPos, canBeEaten)
+  this.ghostDiv = ghostDiv;
+  }
+}
+
+const pacMan = new PacMan(10, 338, 416, true);
 const pacManDiv = document.querySelector('#pac-man');
+
+const ghostOne = new Ghost(9, 338, 260, false, $('#ghost1'));
+// const ghostOneDiv = $('#ghost1');
+
+const ghostTwo = new Ghost(9, 312, 260, false, $('#ghost2'));
+// const ghostTwoDiv = $('#ghost2');
+
+const ghostThree = new Ghost(9, 364, 260, false, $('ghost3'));
+// const ghostThreeDiv = $('#ghost3');
+
+const ghostFour = new Ghost(9, 390, 260, false, $('ghost4'));
+// const ghostFourDiv = $('#ghost4');
+
 assignPosition();
 
 //LETS MAKE PACMAN MOVE BABY!
@@ -223,6 +243,57 @@ function pacManEats () {
     if (parseInt(boxElArray[i].getAttribute('row')) === pacMan.row && parseInt(boxElArray[i].getAttribute('column')) === pacMan.column)
       boxElArray[i].innerHTML = '';
   }
+}
+
+function moveGhosts () {
+  let animate = setInterval(start, ghostOne.speed);
+  function start () {
+    for (let i = 0; i < ghostArray; i++){
+      let direction = ghostDecideDirection();
+      if (direction === 'left') {
+        ghostArray[i].leftPos--;
+        GhostArray[i].ghostDiv.style.left = ghostArray[i].leftPos + 'px';
+        if (movingLeftRowDetection() === true) {
+          pacMan.movingLeft = false;
+          clearInterval(animate);
+      }
+
+      }
+    }
+    if (horizontalGrid() === true && movingRightRowDetection() === false) {
+      if (pacMan.movingLeft === true){
+        pacMan.movingRight = false;
+        clearInterval(animate);
+      }
+      else {
+        pacMan.leftPos++;
+        pacManDiv.style.left = pacMan.leftPos + 'px';
+        if (movingRightRowDetection() === true) {
+          pacMan.movingRight = false;
+          clearInterval(animate);
+        }
+      }
+    }
+  }
+}
+
+//Ghosts!
+  $('#ghost1').css({'left':'338px', 'top':'260px'});
+  $('#ghost2').css({'left':'312px', 'top':'260px'});
+  $('#ghost3').css({'left':'364px', 'top':'260px'});
+  $('#ghost4').css({'left':'390px', 'top':'260px'});
+
+
+function ghostDecideDirection () {
+  let direction = Math.ceil(Math.random()*4);
+  if (direction < 2)
+    return 'left';
+  if (direction < 3)
+    return 'up';
+  if (direction < 4)
+    return 'right';
+  if (direction < 5)
+    return 'down';
 }
 
 initiateEventListeners();
