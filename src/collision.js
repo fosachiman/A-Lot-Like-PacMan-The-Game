@@ -11,10 +11,10 @@ function assignPosition () {
   ghostFour.assignColumn();
 }
 
-function movingRightRowDetection () {
+function movingRightRowDetection (char) {
   assignPosition();
-  let x = pacMan.row;
-  let y = pacMan.column;
+  let x = char.row;
+  let y = char.column;
   for (let i = 0; i < boxArray.length; i++) {
     if (boxArray[i].row === x && boxArray[i].column === y && boxArray[i].hasRightWall === true){
       return true;
@@ -22,10 +22,10 @@ function movingRightRowDetection () {
   }
   return false;
 }
-function movingLeftRowDetection () {
+function movingLeftRowDetection (char) {
   assignPosition ();
-  let x = pacMan.row;
-  let y = pacMan.column;
+  let x = char.row;
+  let y = char.column;
   for (let i = 0; i < boxArray.length; i++) {
     if (boxArray[i].row === x && boxArray[i].column === y){
       if (boxArray[i-1].hasRightWall === true)
@@ -35,10 +35,10 @@ function movingLeftRowDetection () {
   return false;
 }
 
-function movingDownColumnDetection () {
+function movingDownColumnDetection (char) {
   assignPosition ();
-  let x = pacMan.row;
-  let y = pacMan.column;
+  let x = char.row;
+  let y = char.column;
   for (let i = 0; i < boxArray.length; i++) {
     if (boxArray[i].row === x && boxArray[i].column === y && boxArray[i].hasBottomWall === true)
       return true;
@@ -46,10 +46,10 @@ function movingDownColumnDetection () {
   return false;
 }
 
-function movingUpColumnDetection () {
+function movingUpColumnDetection (char) {
   assignPosition ();
-  let x = pacMan.row;
-  let y = pacMan.column;
+  let x = char.row;
+  let y = char.column;
   for (let i = 0; i < boxArray.length; i++) {
     let boxBefore = boxArray[i - 27];
     if (boxArray[i].row === x && boxArray[i].column === y && boxBefore.hasBottomWall === true)

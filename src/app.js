@@ -76,17 +76,19 @@ class Ghost extends Character {
 const pacMan = new PacMan(10, 338, 416, true);
 const pacManDiv = document.querySelector('#pac-man');
 
-const ghostOne = new Ghost(9, 338, 260, false, $('#ghost1'));
-// const ghostOneDiv = $('#ghost1');
+const ghostOneDiv = document.getElementById('ghost1');
+const ghostTwoDiv = document.getElementById('ghost2');
+const ghostThreeDiv = document.getElementById('ghost3');
+const ghostFourDiv = document.getElementById('ghost4');
 
-const ghostTwo = new Ghost(9, 312, 260, false, $('#ghost2'));
-// const ghostTwoDiv = $('#ghost2');
+const ghostOne = new Ghost(9, 338, 260, false, ghostOneDiv);
+const ghostTwo = new Ghost(9, 312, 260, false, ghostTwoDiv);
+const ghostThree = new Ghost(9, 364, 260, false, ghostThreeDiv);
+const ghostFour = new Ghost(9, 390, 260, false, ghostFourDiv);
 
-const ghostThree = new Ghost(9, 364, 260, false, $('ghost3'));
-// const ghostThreeDiv = $('#ghost3');
 
-const ghostFour = new Ghost(9, 390, 260, false, $('ghost4'));
-// const ghostFourDiv = $('#ghost4');
+ghostArray = [ghostOne, ghostTwo, ghostThree, ghostFour];
+
 
 assignPosition();
 
@@ -115,7 +117,7 @@ function moveRight () {
   let animate = setInterval(start, pacMan.speed);
   function start () {
     pacManEats();
-    if (horizontalGrid() === true && movingRightRowDetection() === false) {
+    if (horizontalGrid() === true && movingRightRowDetection(pacMan) === false) {
       if (pacMan.movingLeft === true){
         pacMan.movingRight = false;
         clearInterval(animate);
@@ -123,7 +125,7 @@ function moveRight () {
       else {
         pacMan.leftPos++;
         pacManDiv.style.left = pacMan.leftPos + 'px';
-        if (movingRightRowDetection() === true) {
+        if (movingRightRowDetection(pacMan) === true) {
           pacMan.movingRight = false;
           clearInterval(animate);
         }
@@ -136,7 +138,7 @@ function moveDown () {
   let animate = setInterval(start, pacMan.speed);
   function start () {
     pacManEats();
-    if (verticalGrid() === true && movingDownColumnDetection() === false) {
+    if (verticalGrid() === true && movingDownColumnDetection(pacMan) === false) {
       if (pacMan.movingUp === true) {
         pacMan.movingDown = false;
         clearInterval(animate);
@@ -144,7 +146,7 @@ function moveDown () {
       else {
         pacMan.topPos++;
         pacManDiv.style.top = pacMan.topPos + 'px';
-        if (movingDownColumnDetection() === true) {
+        if (movingDownColumnDetection(pacMan) === true) {
           pacMan.movingDown = false;
           clearInterval(animate);
         }
@@ -157,7 +159,7 @@ function moveLeft () {
   let animate = setInterval(start, pacMan.speed);
   function start () {
     pacManEats();
-    if (horizontalGrid() === true && movingLeftRowDetection() === false) {
+    if (horizontalGrid() === true && movingLeftRowDetection(pacMan) === false) {
       if (pacMan.leftPos <= 0 || pacMan.movingRight === true) {
         pacMan.movingLeft = false;
         clearInterval(animate);
@@ -165,7 +167,7 @@ function moveLeft () {
       else {
         pacMan.leftPos--;
         pacManDiv.style.left = pacMan.leftPos + 'px';
-        if (movingLeftRowDetection() === true) {
+        if (movingLeftRowDetection(pacMan) === true) {
           pacMan.movingLeft = false;
           clearInterval(animate);
         }
@@ -178,7 +180,7 @@ function moveUp () {
   let animate = setInterval(start, pacMan.speed);
   function start () {
     pacManEats();
-    if (verticalGrid() === true && movingUpColumnDetection() === false) {
+    if (verticalGrid() === true && movingUpColumnDetection(pacMan) === false) {
       if (pacMan.topPos <= 0 || pacMan.movingDown === true) {
         pacMan.movingUp = false;
         clearInterval(animate);
@@ -186,7 +188,7 @@ function moveUp () {
       else {
         pacMan.topPos--;
         pacManDiv.style.top = pacMan.topPos + 'px';
-        if (movingUpColumnDetection() === true) {
+        if (movingUpColumnDetection(pacMan) === true) {
           pacMan.movingUp = false;
           clearInterval(animate);
         }
@@ -209,34 +211,6 @@ function verticalGrid () {
     return false;
 }
 
-// function checkHorizontalMovement () {
-//   if (pacMan.leftPos === isHorizontal())
-//     return false;
-//   else
-//     return true;
-// }
-
-// function checkVerticalMovement () {
-//   if (pacMan.topPos === isVertical())
-//     return false;
-//   else
-//     return true;
-// }
-
-// function isHorizontal () {
-//   let num = setTimeout(function() {
-//     return pacMan.leftPos;
-//   }, 50);
-//   return num;
-// }
-
-// function isVertical () {
-//   let num = setTimeout(function() {
-//     return pacMan.topPos;
-//   }, 50);
-//   return num;
-// }
-
 function pacManEats () {
   let boxElArray = $('.box');
   for (let i = 0; i < boxElArray.length; i++){
@@ -245,39 +219,62 @@ function pacManEats () {
   }
 }
 
-function moveGhosts () {
-  let animate = setInterval(start, ghostOne.speed);
+function moveGhost (ghost) {
+  let animate = setInterval(start, ghost.speed);
+  let direction = ghostDecideDirection();
   function start () {
-    for (let i = 0; i < ghostArray; i++){
-      let direction = ghostDecideDirection();
       if (direction === 'left') {
-        ghostArray[i].leftPos--;
-        GhostArray[i].ghostDiv.style.left = ghostArray[i].leftPos + 'px';
-        if (movingLeftRowDetection() === true) {
-          pacMan.movingLeft = false;
-          clearInterval(animate);
+        if (horizontalGrid() === true && movingRightRowDetection(ghost) === false) {
+          ghost.leftPos--;
+          ghost.ghostDiv.style.left = ghost.leftPos + 'px';
+          if (movingLeftRowDetection(ghost) === true) {
+            ghost.movingLeft = false;
+            direction = ghostDecideDirection();
+          }
+        }
+        else
+          direction = ghostDecideDirection();
       }
-
+      else if (direction === 'right') {
+        if (horizontalGrid() === true && movingRightRowDetection(ghost) === false) {
+          ghost.leftPos++;
+          ghost.ghostDiv.style.left = ghost.leftPos + 'px';
+          if (movingRightRowDetection(ghost) === true) {
+            ghost.movingRight = false;
+            direction = ghostDecideDirection();
+          }
+        }
+        else
+          direction = ghostDecideDirection();
       }
-    }
-    if (horizontalGrid() === true && movingRightRowDetection() === false) {
-      if (pacMan.movingLeft === true){
-        pacMan.movingRight = false;
-        clearInterval(animate);
+      else if (direction === 'up') {
+        if (verticalGrid() === true && movingUpColumnDetection(ghost) === false) {
+          ghost.topPos--;
+          ghost.ghostDiv.style.top = ghost.topPos + 'px';
+          if (movingUpColumnDetection(ghost) === true) {
+            ghost.movingUp = false;
+            direction = ghostDecideDirection();
+          }
+        }
+        else
+          direction = ghostDecideDirection();
       }
       else {
-        pacMan.leftPos++;
-        pacManDiv.style.left = pacMan.leftPos + 'px';
-        if (movingRightRowDetection() === true) {
-          pacMan.movingRight = false;
-          clearInterval(animate);
+        if (verticalGrid() === true && movingUpColumnDetection(ghost) === false) {
+          ghost.topPos++;
+          ghost.ghostDiv.style.top = ghost.topPos + 'px';
+          if (movingDownColumnDetection(ghost) === true) {
+            ghost.movingDown = false;
+            direction = ghostDecideDirection();
+          }
         }
+        else
+          direction = ghostDecideDirection();
       }
     }
-  }
 }
 
-//Ghosts!
+  //Ghosts!
   $('#ghost1').css({'left':'338px', 'top':'260px'});
   $('#ghost2').css({'left':'312px', 'top':'260px'});
   $('#ghost3').css({'left':'364px', 'top':'260px'});
@@ -297,5 +294,7 @@ function ghostDecideDirection () {
 }
 
 initiateEventListeners();
-
-
+moveGhost(ghostOne);
+moveGhost(ghostTwo);
+moveGhost(ghostThree);
+moveGhost(ghostFour);
