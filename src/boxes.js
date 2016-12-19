@@ -1,3 +1,5 @@
+//creates a class for each square on the board
+
 class Box {
   constructor (hasDot, hasRightWall, hasBottomWall) {
     this.hasDot = hasDot;
@@ -896,6 +898,7 @@ boxArray[55].hasBigDot = true;
 boxArray[80].hasBigDot = true;
 boxArray[541].hasBigDot = true;
 boxArray[566].hasBigDot = true;
+
 //Gives box objects a column and row property
 
 function assignColumnsAndRows () {

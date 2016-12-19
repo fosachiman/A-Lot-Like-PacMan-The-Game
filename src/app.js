@@ -1,34 +1,5 @@
-//top object has speed, eats dots, can be eaten, hit box, can move up down left right
-//pac man is an object
-// pac man can eat dots and eat big dots that change his state - so hitting ghost is good, not bad
-//ghosts are objects, both probably inherit from some object - when pacman changes state, hitting pacman is bad, not good
-  //...for them
-//pac man can move up down left right
-// the move mechanic is that he moves on key down and changes direction on key down
-//pac man cannot go through walls
 
-//both ghosts and pacman need to have a trackable x,y location, that can serve as a hitbox
-
-//each box on the grid is a div AND an object
-//the properties of this object are -
-  //has dot, has BIG dot, has border: up,down,left,right
-  //has pacman, has ghost, dot position, dot type
-
-//make dot disappear when pacman runs through it.
-
-
-//how to we tie pacman's position within the box, and how do we tie ghost position hitting pacman
-//solve ghosts banging into each other
-
-//how does pacman's invincibility state run out?
-//store the keypress so pacman knows the next opportunity to go through the box
-//figure out animation of pacman going through tunnel
-
-//COLLISION DETECTION
-//let's say pacman is on row 2,  that means he'd be between y30 and y60 hypothetically
-//Pacman can't move down unless he is perfectly in a column and he can't move left/right unless he is perfectly in a row
-//Grid is 27 width x 22 height
-
+//Class constructor for all characters on screen
 
 class Character {
   constructor(speed, leftPos, topPos, canBeEaten){
@@ -42,7 +13,6 @@ class Character {
     this.movingUp = false;
     this.movingDown = false;
     this.direction = 'none';
-
   }
   assignRow () {
     if (this.topPos % 26 !== 0)
@@ -60,12 +30,14 @@ class Character {
   };
 }
 
+//PacMan class constructor
 class PacMan extends Character {
   constructor(speed, leftPos, topPos, canBeEaten) {
     super(speed, leftPos, topPos, canBeEaten)
   }
 }
 
+//Ghost class constructor
 class Ghost extends Character {
   constructor (speed, leftPos, topPos, canBeEaten, ghostDiv) {
     super (speed, leftPos, topPos, canBeEaten)
@@ -73,6 +45,7 @@ class Ghost extends Character {
   }
 }
 
+//Creating instances of PacMan and ghosts and giving them HTML elements
 const pacMan = new PacMan(10, 338, 416, true);
 const pacManDiv = document.querySelector('#pac-man');
 
@@ -81,18 +54,24 @@ const ghostTwoDiv = document.getElementById('ghost2');
 const ghostThreeDiv = document.getElementById('ghost3');
 const ghostFourDiv = document.getElementById('ghost4');
 
-const ghostOne = new Ghost(9, 338, 260, false, ghostOneDiv);
-const ghostTwo = new Ghost(9, 312, 260, false, ghostTwoDiv);
-const ghostThree = new Ghost(9, 364, 260, false, ghostThreeDiv);
-const ghostFour = new Ghost(9, 390, 260, false, ghostFourDiv);
+const ghostOne = new Ghost(8, 338, 260, false, ghostOneDiv);
+const ghostTwo = new Ghost(8, 312, 260, false, ghostTwoDiv);
+const ghostThree = new Ghost(8, 364, 260, false, ghostThreeDiv);
+const ghostFour = new Ghost(8, 390, 260, false, ghostFourDiv);
 
-
+//An array of the ghost objects
 ghostArray = [ghostOne, ghostTwo, ghostThree, ghostFour];
 
+//Puts the ghosts on the board
+$('#ghost1').css({'left':'338px', 'top':'260px'});
+$('#ghost2').css({'left':'312px', 'top':'260px'});
+$('#ghost3').css({'left':'364px', 'top':'260px'});
+$('#ghost4').css({'left':'390px', 'top':'260px'});
 
+//Assigns x and y position of PacMan and ghosts on the board
 assignPosition();
 
-//LETS MAKE PACMAN MOVE BABY!
+//Event listener for keydowns
 
 function initiateEventListeners () {
   window.addEventListener('keydown', move);
@@ -112,12 +91,16 @@ function move(e) {
   }
 }
 
+//Function for movement in each direction.  I'm SO CLOSE to getting this right, but I can't figure
+//out how to clear an interval's movement when PacMan makes a turn without hitting a wall first
+
 function moveRight () {
   pacMan.movingRight = true;
   let animate = setInterval(start, pacMan.speed);
   function start () {
     pacManEats();
-    if (horizontalGrid() === true && movingRightRowDetection(pacMan) === false) {
+
+    if (horizontalGrid(pacMan) === true && movingRightRowDetection(pacMan) === false) {
       if (pacMan.movingLeft === true){
         pacMan.movingRight = false;
         clearInterval(animate);
@@ -138,7 +121,8 @@ function moveDown () {
   let animate = setInterval(start, pacMan.speed);
   function start () {
     pacManEats();
-    if (verticalGrid() === true && movingDownColumnDetection(pacMan) === false) {
+    isPacManAWinner();
+    if (verticalGrid(pacMan) === true && movingDownColumnDetection(pacMan) === false) {
       if (pacMan.movingUp === true) {
         pacMan.movingDown = false;
         clearInterval(animate);
@@ -159,7 +143,8 @@ function moveLeft () {
   let animate = setInterval(start, pacMan.speed);
   function start () {
     pacManEats();
-    if (horizontalGrid() === true && movingLeftRowDetection(pacMan) === false) {
+    isPacManAWinner();
+    if (horizontalGrid(pacMan) === true && movingLeftRowDetection(pacMan) === false) {
       if (pacMan.leftPos <= 0 || pacMan.movingRight === true) {
         pacMan.movingLeft = false;
         clearInterval(animate);
@@ -180,7 +165,8 @@ function moveUp () {
   let animate = setInterval(start, pacMan.speed);
   function start () {
     pacManEats();
-    if (verticalGrid() === true && movingUpColumnDetection(pacMan) === false) {
+    isPacManAWinner();
+    if (verticalGrid(pacMan) === true && movingUpColumnDetection(pacMan) === false) {
       if (pacMan.topPos <= 0 || pacMan.movingDown === true) {
         pacMan.movingUp = false;
         clearInterval(animate);
@@ -197,19 +183,23 @@ function moveUp () {
   }
 }
 
-function horizontalGrid () {
-  if (pacMan.row !== undefined)
+//PacMan can only turn when he is on the grid
+
+function horizontalGrid (char) {
+  if (char.row !== undefined)
     return true;
   else
     return false;
 }
 
-function verticalGrid () {
-  if (pacMan.column !== undefined)
+function verticalGrid (char) {
+  if (char.column !== undefined)
     return true;
   else
     return false;
 }
+
+//Function that allows PacMan to eat dots
 
 function pacManEats () {
   let boxElArray = $('.box');
@@ -219,12 +209,14 @@ function pacManEats () {
   }
 }
 
+//Ghost movement functionality that needs some work...
+
 function moveGhost (ghost) {
   let animate = setInterval(start, ghost.speed);
   let direction = ghostDecideDirection();
   function start () {
       if (direction === 'left') {
-        if (horizontalGrid() === true && movingRightRowDetection(ghost) === false) {
+        if (horizontalGrid(ghost) === true && movingLeftRowDetection(ghost) === false) {
           ghost.leftPos--;
           ghost.ghostDiv.style.left = ghost.leftPos + 'px';
           if (movingLeftRowDetection(ghost) === true) {
@@ -236,7 +228,7 @@ function moveGhost (ghost) {
           direction = ghostDecideDirection();
       }
       else if (direction === 'right') {
-        if (horizontalGrid() === true && movingRightRowDetection(ghost) === false) {
+        if (horizontalGrid(ghost) === true && movingRightRowDetection(ghost) === false) {
           ghost.leftPos++;
           ghost.ghostDiv.style.left = ghost.leftPos + 'px';
           if (movingRightRowDetection(ghost) === true) {
@@ -248,7 +240,7 @@ function moveGhost (ghost) {
           direction = ghostDecideDirection();
       }
       else if (direction === 'up') {
-        if (verticalGrid() === true && movingUpColumnDetection(ghost) === false) {
+        if (verticalGrid(ghost) === true && movingUpColumnDetection(ghost) === false) {
           ghost.topPos--;
           ghost.ghostDiv.style.top = ghost.topPos + 'px';
           if (movingUpColumnDetection(ghost) === true) {
@@ -260,7 +252,7 @@ function moveGhost (ghost) {
           direction = ghostDecideDirection();
       }
       else {
-        if (verticalGrid() === true && movingUpColumnDetection(ghost) === false) {
+        if (verticalGrid(ghost) === true && movingDownColumnDetection(ghost) === false) {
           ghost.topPos++;
           ghost.ghostDiv.style.top = ghost.topPos + 'px';
           if (movingDownColumnDetection(ghost) === true) {
@@ -274,12 +266,7 @@ function moveGhost (ghost) {
     }
 }
 
-  //Ghosts!
-  $('#ghost1').css({'left':'338px', 'top':'260px'});
-  $('#ghost2').css({'left':'312px', 'top':'260px'});
-  $('#ghost3').css({'left':'364px', 'top':'260px'});
-  $('#ghost4').css({'left':'390px', 'top':'260px'});
-
+//Randomizes the direction in which the ghosts will travel
 
 function ghostDecideDirection () {
   let direction = Math.ceil(Math.random()*4);
@@ -292,6 +279,18 @@ function ghostDecideDirection () {
   if (direction < 5)
     return 'down';
 }
+
+function isPacManAWinner () {
+  for (let i = 0; i < boxArray.length; i++) {
+    if (boxArray[i].hasDot === true)
+      console.log(boxArray[i]);
+      return false;
+  }
+  alert('PacMan wins!');
+  return true;
+}
+
+//Calls the event listener and ghost movement
 
 initiateEventListeners();
 moveGhost(ghostOne);

@@ -1,3 +1,5 @@
+//Calls object functions that assign rows and columns to each character
+
 function assignPosition () {
   pacMan.assignRow();
   pacMan.assignColumn();
@@ -11,6 +13,8 @@ function assignPosition () {
   ghostFour.assignColumn();
 }
 
+//Detects walls when moving right
+
 function movingRightRowDetection (char) {
   assignPosition();
   let x = char.row;
@@ -22,6 +26,9 @@ function movingRightRowDetection (char) {
   }
   return false;
 }
+
+//Detects walls when moving left
+
 function movingLeftRowDetection (char) {
   assignPosition ();
   let x = char.row;
@@ -35,6 +42,8 @@ function movingLeftRowDetection (char) {
   return false;
 }
 
+//Detects walls when moving down
+
 function movingDownColumnDetection (char) {
   assignPosition ();
   let x = char.row;
@@ -45,6 +54,8 @@ function movingDownColumnDetection (char) {
   }
   return false;
 }
+
+//Detects walls when moving up
 
 function movingUpColumnDetection (char) {
   assignPosition ();
