@@ -99,8 +99,11 @@ function moveRight () {
   let animate = setInterval(start, pacMan.speed);
   function start () {
     pacManEats();
-
-    if (horizontalGrid(pacMan) === true && movingRightRowDetection(pacMan) === false) {
+    if (isPacManAWinner() === true)
+      clearInterval(animate);
+    // else if (pacManHit() === true)
+    //   clearInterval(animate);
+    else if (horizontalGrid(pacMan) === true && movingRightRowDetection(pacMan) === false) {
       if (pacMan.movingLeft === true){
         pacMan.movingRight = false;
         clearInterval(animate);
@@ -121,8 +124,11 @@ function moveDown () {
   let animate = setInterval(start, pacMan.speed);
   function start () {
     pacManEats();
-    isPacManAWinner();
-    if (verticalGrid(pacMan) === true && movingDownColumnDetection(pacMan) === false) {
+    if (isPacManAWinner() === true)
+      clearInterval(animate);
+    // else if (pacManHit() === true)
+    //   clearInterval(animate);
+    else if (verticalGrid(pacMan) === true && movingDownColumnDetection(pacMan) === false) {
       if (pacMan.movingUp === true) {
         pacMan.movingDown = false;
         clearInterval(animate);
@@ -143,8 +149,11 @@ function moveLeft () {
   let animate = setInterval(start, pacMan.speed);
   function start () {
     pacManEats();
-    isPacManAWinner();
-    if (horizontalGrid(pacMan) === true && movingLeftRowDetection(pacMan) === false) {
+    if (isPacManAWinner() === true)
+      clearInterval(animate);
+    // else if (pacManHit() === true)
+    //   clearInterval(animate);
+    else if (horizontalGrid(pacMan) === true && movingLeftRowDetection(pacMan) === false) {
       if (pacMan.leftPos <= 0 || pacMan.movingRight === true) {
         pacMan.movingLeft = false;
         clearInterval(animate);
@@ -165,8 +174,11 @@ function moveUp () {
   let animate = setInterval(start, pacMan.speed);
   function start () {
     pacManEats();
-    isPacManAWinner();
-    if (verticalGrid(pacMan) === true && movingUpColumnDetection(pacMan) === false) {
+    if (isPacManAWinner() === true)
+      clearInterval(animate);
+    // else if (pacManHit() === true)
+    //   clearInterval(animate);
+    else if (verticalGrid(pacMan) === true && movingUpColumnDetection(pacMan) === false) {
       if (pacMan.topPos <= 0 || pacMan.movingDown === true) {
         pacMan.movingUp = false;
         clearInterval(animate);
@@ -281,14 +293,37 @@ function ghostDecideDirection () {
 }
 
 function isPacManAWinner () {
-  for (let i = 0; i < boxArray.length; i++) {
-    if (boxArray[i].hasDot === true)
-      console.log(boxArray[i]);
-      return false;
+  let boxElArray = $('.box');
+  for (let i = 0; i < boxElArray.length; i++){
+    if (boxElArray[i].innerHTML === '.')
+    return false;
   }
   alert('PacMan wins!');
   return true;
 }
+
+// function pacManHit () {
+//   for (let i = 0; i < ghostArray.length; i++){
+//     if (Math.abs(ghostArray[i].topPos - pacMan.topPos) < 19 && pacMan.column === ghostArray[i].column){
+//       alert (`Oh no you got hit by a ghost`);
+//       $('#ghost1').css({'left':'338px', 'top':'260px'});
+//       $('#ghost2').css({'left':'312px', 'top':'260px'});
+//       $('#ghost3').css({'left':'364px', 'top':'260px'});
+//       $('#ghost4').css({'left':'390px', 'top':'260px'});
+//       $('#pacMan').css({'left':'338px', 'top':'416px'});
+//       return true;
+//     }
+//     else if (Math.abs(ghostArray[i].leftPos - pacMan.leftPos) < 19 && pacMan.row === ghostArray[i].row){
+//       alert (`Oh no you got hit by a ghost`);
+//       $('#ghost1').css({'left':'338px', 'top':'260px'});
+//       $('#ghost2').css({'left':'312px', 'top':'260px'});
+//       $('#ghost3').css({'left':'364px', 'top':'260px'});
+//       $('#ghost4').css({'left':'390px', 'top':'260px'});
+//       $('#pacMan').css({'left':'338px', 'top':'416px'});
+//       return true;
+//     }
+//   }
+// }
 
 //Calls the event listener and ghost movement
 

@@ -22,6 +22,7 @@ function createBox (hasDot, hasRightWall, hasLeftWall){
   box.push(boxArray);
 }
 
+
 createBox (false, true, true);
 
 for (let i = 0; i < 25; i++){
