@@ -61,6 +61,7 @@ const ghostFour = new Ghost(8, 390, 260, false, ghostFourDiv);
 
 //An array of the ghost objects
 ghostArray = [ghostOne, ghostTwo, ghostThree, ghostFour];
+ghostArrayDivs = [ghostOneDiv, ghostTwoDiv, ghostThreeDiv, ghostFourDiv];
 
 //Puts the ghosts on the board
 $('#ghost1').css({'left':'338px', 'top':'260px'});
@@ -219,25 +220,25 @@ function moveUp () {
 function changeDirectionUp() {
   if (pacMan.lastKey === 'up' && horizontalGrid(pacMan) === true && verticalGrid(pacMan) === true
       && movingUpColumnDetection(pacMan) === false) {
-    return true
+    return true;
   }
 }
 function changeDirectionDown() {
   if (pacMan.lastKey === 'down' && horizontalGrid(pacMan) === true && verticalGrid(pacMan) === true
       && movingDownColumnDetection(pacMan) === false) {
-    return true
+    return true;
   }
 }
 function changeDirectionLeft() {
   if (pacMan.lastKey === 'left' && horizontalGrid(pacMan) === true && verticalGrid(pacMan) === true
       && movingLeftRowDetection(pacMan) === false) {
-    return true
+    return true;
   }
 }
 function changeDirectionRight() {
   if (pacMan.lastKey === 'right' && horizontalGrid(pacMan) === true && verticalGrid(pacMan) === true
       && movingRightRowDetection(pacMan) === false) {
-    return true
+    return true;
   }
 }
 //PacMan can only turn when he is on the grid
@@ -272,55 +273,56 @@ function moveGhost (ghost) {
   let animate = setInterval(start, ghost.speed);
   let direction = ghostDecideDirection();
   function start () {
-      if (direction === 'left') {
-        if (horizontalGrid(ghost) === true && movingLeftRowDetection(ghost) === false) {
-          ghost.leftPos--;
-          ghost.ghostDiv.style.left = ghost.leftPos + 'px';
-          if (movingLeftRowDetection(ghost) === true) {
-            ghost.movingLeft = false;
-            direction = ghostDecideDirection();
-          }
-        }
-        else
+    pacManHit(ghost);
+    if (direction === 'left') {
+      if (horizontalGrid(ghost) === true && movingLeftRowDetection(ghost) === false) {
+        ghost.leftPos--;
+        ghost.ghostDiv.style.left = ghost.leftPos + 'px';
+        if (movingLeftRowDetection(ghost) === true) {
+          ghost.movingLeft = false;
           direction = ghostDecideDirection();
-      }
-      else if (direction === 'right') {
-        if (horizontalGrid(ghost) === true && movingRightRowDetection(ghost) === false) {
-          ghost.leftPos++;
-          ghost.ghostDiv.style.left = ghost.leftPos + 'px';
-          if (movingRightRowDetection(ghost) === true) {
-            ghost.movingRight = false;
-            direction = ghostDecideDirection();
-          }
         }
-        else
-          direction = ghostDecideDirection();
       }
-      else if (direction === 'up') {
-        if (verticalGrid(ghost) === true && movingUpColumnDetection(ghost) === false) {
-          ghost.topPos--;
-          ghost.ghostDiv.style.top = ghost.topPos + 'px';
-          if (movingUpColumnDetection(ghost) === true) {
-            ghost.movingUp = false;
-            direction = ghostDecideDirection();
-          }
-        }
-        else
-          direction = ghostDecideDirection();
-      }
-      else {
-        if (verticalGrid(ghost) === true && movingDownColumnDetection(ghost) === false) {
-          ghost.topPos++;
-          ghost.ghostDiv.style.top = ghost.topPos + 'px';
-          if (movingDownColumnDetection(ghost) === true) {
-            ghost.movingDown = false;
-            direction = ghostDecideDirection();
-          }
-        }
-        else
-          direction = ghostDecideDirection();
-      }
+      else
+        direction = ghostDecideDirection();
     }
+    else if (direction === 'right') {
+      if (horizontalGrid(ghost) === true && movingRightRowDetection(ghost) === false) {
+        ghost.leftPos++;
+        ghost.ghostDiv.style.left = ghost.leftPos + 'px';
+        if (movingRightRowDetection(ghost) === true) {
+          ghost.movingRight = false;
+          direction = ghostDecideDirection();
+        }
+      }
+      else
+        direction = ghostDecideDirection();
+    }
+    else if (direction === 'up') {
+      if (verticalGrid(ghost) === true && movingUpColumnDetection(ghost) === false) {
+        ghost.topPos--;
+        ghost.ghostDiv.style.top = ghost.topPos + 'px';
+        if (movingUpColumnDetection(ghost) === true) {
+          ghost.movingUp = false;
+          direction = ghostDecideDirection();
+        }
+      }
+      else
+        direction = ghostDecideDirection();
+    }
+    else {
+      if (verticalGrid(ghost) === true && movingDownColumnDetection(ghost) === false) {
+        ghost.topPos++;
+        ghost.ghostDiv.style.top = ghost.topPos + 'px';
+        if (movingDownColumnDetection(ghost) === true) {
+          ghost.movingDown = false;
+          direction = ghostDecideDirection();
+        }
+      }
+      else
+        direction = ghostDecideDirection();
+    }
+  }
 }
 
 //Randomizes the direction in which the ghosts will travel
@@ -347,28 +349,22 @@ function isPacManAWinner () {
   return true;
 }
 
-// function pacManHit () {
-//   for (let i = 0; i < ghostArray.length; i++){
-//     if (Math.abs(ghostArray[i].topPos - pacMan.topPos) < 19 && pacMan.column === ghostArray[i].column){
-//       alert (`Oh no you got hit by a ghost`);
-//       $('#ghost1').css({'left':'338px', 'top':'260px'});
-//       $('#ghost2').css({'left':'312px', 'top':'260px'});
-//       $('#ghost3').css({'left':'364px', 'top':'260px'});
-//       $('#ghost4').css({'left':'390px', 'top':'260px'});
-//       $('#pacMan').css({'left':'338px', 'top':'416px'});
-//       return true;
-//     }
-//     else if (Math.abs(ghostArray[i].leftPos - pacMan.leftPos) < 19 && pacMan.row === ghostArray[i].row){
-//       alert (`Oh no you got hit by a ghost`);
-//       $('#ghost1').css({'left':'338px', 'top':'260px'});
-//       $('#ghost2').css({'left':'312px', 'top':'260px'});
-//       $('#ghost3').css({'left':'364px', 'top':'260px'});
-//       $('#ghost4').css({'left':'390px', 'top':'260px'});
-//       $('#pacMan').css({'left':'338px', 'top':'416px'});
-//       return true;
-//     }
-//   }
-// }
+function pacManHit (ghost) {
+    if (Math.abs(ghost.topPos - parseInt(pacManDiv.style.top)) < 19 && pacMan.column === ghost.column && pacMan.column !== undefined){
+      console.log(ghost.leftPos);
+      console.log(parseInt(pacManDiv.style.left));
+      console.log(pacMan.column);
+      console.log(ghost.column);
+      return true;
+    }
+    else if (Math.abs(ghost.leftPos - parseInt(pacManDiv.style.left)) < 19 && pacMan.row === ghost.row && pacMan.row !== undefined){
+      console.log(ghost.leftPos);
+      console.log(parseInt(pacManDiv.style.left));
+      console.log(pacMan.row);
+      console.log(ghost.row);
+      return true;
+    }
+}
 
 //Calls the event listener and ghost movement
 

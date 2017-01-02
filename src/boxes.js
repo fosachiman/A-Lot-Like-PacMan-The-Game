@@ -934,8 +934,9 @@ function createMap () {
     boxEl.setAttribute('column', boxArray[i].column);
     if (boxArray[i].hasDot === true)
       boxEl.innerHTML = '.';
-    if (boxArray[i].hasBigDot === true)
+    if (boxArray[i].hasBigDot === true) {
       boxEl.innerHTML = '&#x25c9';
+    }
     if (boxArray[i].hasRightWall === true)
       boxEl.style.borderRight = '1px solid white'
     if (boxArray[i].hasBottomWall === true)
