@@ -938,9 +938,9 @@ function createMap () {
       boxEl.innerHTML = '&#x25c9';
     }
     if (boxArray[i].hasRightWall === true)
-      boxEl.style.borderRight = '1px solid white'
+      boxEl.style.borderRight = '1px solid blue'
     if (boxArray[i].hasBottomWall === true)
-      boxEl.style.borderBottom = '1px solid white'
+      boxEl.style.borderBottom = '1px solid blue'
   }
 }
 

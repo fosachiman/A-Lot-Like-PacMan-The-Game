@@ -6,6 +6,7 @@ class Character {
 
     this.speed = speed; //milliseconds it takes to move one pixel
     this.canBeEaten = canBeEaten;
+    this.hasBeenEaten = false;
     this.leftPos = leftPos;
     this.topPos = topPos
     this.movingRight = false;
@@ -34,6 +35,9 @@ class PacMan extends Character {
   constructor(speed, leftPos, topPos, canBeEaten) {
     super(speed, leftPos, topPos, canBeEaten)
     this.lastKey = 'none';
+    this.canBeEaten = true;
+    this.justAteBigDot = false;
+    this.lives = 3;
   }
 }
 
@@ -42,6 +46,7 @@ class Ghost extends Character {
   constructor (speed, leftPos, topPos, canBeEaten, ghostDiv) {
     super (speed, leftPos, topPos, canBeEaten)
   this.ghostDiv = ghostDiv;
+  this.canBeEaten = false;
   }
 }
 
@@ -96,18 +101,14 @@ function move(e) {
   }
 }
 
-//Function for movement in each direction.  I'm SO CLOSE to getting this right, but I can't figure
-//out how to clear an interval's movement when PacMan makes a turn without hitting a wall first
 
 function moveRight () {
   pacMan.movingRight = true;
   let animate = setInterval(start, pacMan.speed);
   function start () {
     pacManEats();
-    if (isPacManAWinner() === true)
+    if (isPacManAWinner() === true || pacMan.hasBeenEaten === true)
       clearInterval(animate);
-    // else if (pacManHit() === true)
-    //   clearInterval(animate);
     else if (changeDirectionUp() === true || changeDirectionDown() === true) {
       pacMan.movingRight = false;
       clearInterval(animate);
@@ -133,10 +134,8 @@ function moveDown () {
   let animate = setInterval(start, pacMan.speed);
   function start () {
     pacManEats();
-    if (isPacManAWinner() === true)
+    if (isPacManAWinner() === true || pacMan.hasBeenEaten === true)
       clearInterval(animate);
-    // else if (pacManHit() === true)
-    //   clearInterval(animate);
     else if (changeDirectionRight() === true || changeDirectionLeft() === true) {
       pacMan.movingDown = false;
       clearInterval(animate);
@@ -162,10 +161,8 @@ function moveLeft () {
   let animate = setInterval(start, pacMan.speed);
   function start () {
     pacManEats();
-    if (isPacManAWinner() === true)
+    if (isPacManAWinner() === true || pacMan.hasBeenEaten === true)
       clearInterval(animate);
-    // else if (pacManHit() === true)
-    //   clearInterval(animate);
     else if (changeDirectionUp() === true || changeDirectionDown() === true) {
       pacMan.movingLeft = false;
       clearInterval(animate);
@@ -191,10 +188,8 @@ function moveUp () {
   let animate = setInterval(start, pacMan.speed);
   function start () {
     pacManEats();
-    if (isPacManAWinner() === true)
+    if (isPacManAWinner() === true || pacMan.hasBeenEaten === true)
       clearInterval(animate);
-    // else if (pacManHit() === true)
-    //   clearInterval(animate);
     else if (changeDirectionRight() === true || changeDirectionLeft() === true) {
       pacMan.movingUp = false;
       clearInterval(animate);
@@ -262,18 +257,60 @@ function verticalGrid (char) {
 function pacManEats () {
   let boxElArray = $('.box');
   for (let i = 0; i < boxElArray.length; i++){
-    if (parseInt(boxElArray[i].getAttribute('row')) === pacMan.row && parseInt(boxElArray[i].getAttribute('column')) === pacMan.column)
+    if (parseInt(boxElArray[i].getAttribute('row')) === pacMan.row && parseInt(boxElArray[i].getAttribute('column')) === pacMan.column && boxElArray[i].innerHTML !== '' && boxElArray[i].innerHTML !== '.') {
+      pacMan.canBeEaten = false;
+      pacManEatsBigDot();
+      boxElArray[i].innerHTML = '';
+    }
+    else if (parseInt(boxElArray[i].getAttribute('row')) === pacMan.row && parseInt(boxElArray[i].getAttribute('column')) === pacMan.column)
       boxElArray[i].innerHTML = '';
   }
 }
 
-//Ghost movement functionality that needs some work...
+pacManEatsBigDot = function() {
+  if (!pacMan.canBeEaten) {
+    console.log('BIG DOT');
+    ghostArray.forEach(function(ghost, index) {
+      ghost.canBeEaten = true;
+      $(ghostArrayDivs[index]).css({'background-color':'white'});
+    })
+    setTimeout(function(){
+      pacMan.canBeEaten = true;
+      pacMan.justAteBigDot = false;
+      ghostArray.forEach(function(ghost, index) {
+        if (!ghost.hasBeenEaten)
+        ghost.canBeEaten = false;
+        $(ghostArrayDivs[index]).css({'background-color':'pink', 'border':'none'});
+      })
+      return false;
+    },5000);
+    return true;
+  }
+}
 
-function moveGhost (ghost) {
+//Ghost movement functionality that needs some work - need to get the ghosts to be able to turn
+
+function moveGhost (ghosts) {
+  ghosts.forEach(function(ghost) {
+    console.log('HOWDY AGAIN');
   let animate = setInterval(start, ghost.speed);
   let direction = ghostDecideDirection();
   function start () {
-    pacManHit(ghost);
+    if (pacManEatsBigDot === true  && !pacMan.justAteBigDot){
+      pacMan.justAteBigDot = true;
+      clearInterval(animate);
+      moveGhost(ghosts);
+      console.log('HOWDY')
+
+    }
+    if (pacManHit(ghost)){
+        clearInterval(animate);
+      //everything stops
+      //some sort of animation that takes a couple seconds
+      //pacman loses a life
+      //everything restarts
+
+    }
     if (direction === 'left') {
       if (horizontalGrid(ghost) === true && movingLeftRowDetection(ghost) === false) {
         ghost.leftPos--;
@@ -323,6 +360,7 @@ function moveGhost (ghost) {
         direction = ghostDecideDirection();
     }
   }
+})
 }
 
 //Randomizes the direction in which the ghosts will travel
@@ -351,25 +389,36 @@ function isPacManAWinner () {
 
 function pacManHit (ghost) {
     if (Math.abs(ghost.topPos - parseInt(pacManDiv.style.top)) < 19 && pacMan.column === ghost.column && pacMan.column !== undefined){
-      console.log(ghost.leftPos);
-      console.log(parseInt(pacManDiv.style.left));
-      console.log(pacMan.column);
-      console.log(ghost.column);
-      return true;
+      if (pacMan.canBeEaten && !ghost.hasBeenEaten) {
+        pacMan.hasBeenEaten = true;
+        pacMan.lives--;
+        return true;
+      }
+      else if (ghost.canBeEaten)
+        ghostHasBeenEaten(ghost);
+
+        //ghost returns back to spot
+        //ghost is not a thing on his way there
+        //once he returns, he's back to his normal form and continues about his business as usual
     }
     else if (Math.abs(ghost.leftPos - parseInt(pacManDiv.style.left)) < 19 && pacMan.row === ghost.row && pacMan.row !== undefined){
-      console.log(ghost.leftPos);
-      console.log(parseInt(pacManDiv.style.left));
-      console.log(pacMan.row);
-      console.log(ghost.row);
-      return true;
+      if (pacMan.canBeEaten && !ghost.hasBeenEaten) {
+        pacMan.hasBeenEaten = true;
+        pacMan.lives--;
+        return true;
+      }
+      else if (ghost.canBeEaten)
+        ghostHasBeenEaten(ghost);
     }
 }
+
+function ghostHasBeenEaten(ghost) {
+   let index = ghostArray.indexOf(ghost);
+   $(ghostArrayDivs[index]).css({'background-color':'rgba(255,255,255,.1', 'border':'1px solid white'});
+}
+
 
 //Calls the event listener and ghost movement
 
 initiateEventListeners();
-moveGhost(ghostOne);
-moveGhost(ghostTwo);
-moveGhost(ghostThree);
-moveGhost(ghostFour);
+moveGhost(ghostArray);
