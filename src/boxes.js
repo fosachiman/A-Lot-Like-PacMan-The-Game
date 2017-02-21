@@ -890,7 +890,8 @@ for (let i = 0; i < 25; i++) {
 createBox (true, true, true);
 
 //BOARD FIXES
-
+boxArray[283].hasBottomWall = true;
+boxArray[284].hasBottomWall = true;
 boxArray[358].hasBottomWall = true;
 boxArray[359].hasBottomWall = true;
 boxArray[370].hasBottomWall = true;
