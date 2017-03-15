@@ -69,10 +69,17 @@ ghostArray = [ghostOne, ghostTwo, ghostThree, ghostFour];
 ghostArrayDivs = [ghostOneDiv, ghostTwoDiv, ghostThreeDiv, ghostFourDiv];
 
 //Puts the ghosts on the board
-$('#ghost1').css({'left':'338px', 'top':'260px'});
-$('#ghost2').css({'left':'312px', 'top':'260px'});
-$('#ghost3').css({'left':'364px', 'top':'260px'});
-$('#ghost4').css({'left':'390px', 'top':'260px'});
+ghostOneDiv.style.left = '338px';
+ghostOneDiv.style.top = '260px';
+
+ghostTwoDiv.style.left = '312px';
+ghostTwoDiv.style.top = '260px';
+
+ghostThreeDiv.style.left = '364px';
+ghostThreeDiv.style.top = '260px';
+
+ghostFourDiv.style.left = '390px';
+ghostFourDiv.style.top = '260px';
 
 //Assigns x and y position of PacMan and ghosts on the board
 assignPosition();
@@ -255,7 +262,7 @@ function verticalGrid (char) {
 //Function that allows PacMan to eat dots
 
 function pacManEats () {
-  let boxElArray = $('.box');
+  let boxElArray = document.querySelectorAll('.box');
   for (let i = 0; i < boxElArray.length; i++){
     if (parseInt(boxElArray[i].getAttribute('row')) === pacMan.row && parseInt(boxElArray[i].getAttribute('column')) === pacMan.column && boxElArray[i].innerHTML !== '' && boxElArray[i].innerHTML !== '.') {
       pacMan.canBeEaten = false;
@@ -272,7 +279,7 @@ pacManEatsBigDot = function() {
     console.log('BIG DOT');
     ghostArray.forEach(function(ghost, index) {
       ghost.canBeEaten = true;
-      $(ghostArrayDivs[index]).css({'background-color':'white'});
+      ghostArrayDivs[index].style.backgroundColor = 'white';
     })
     setTimeout(function(){
       pacMan.canBeEaten = true;
@@ -280,7 +287,9 @@ pacManEatsBigDot = function() {
       ghostArray.forEach(function(ghost, index) {
         if (!ghost.hasBeenEaten)
         ghost.canBeEaten = false;
-        $(ghostArrayDivs[index]).css({'background-color':'pink', 'border':'none'});
+        ghostArrayDivs[index].style.backgroundColor = 'pink';
+        ghostArrayDivs[index].style.border = 'none';
+
       })
       return false;
     },5000);
@@ -378,7 +387,7 @@ function ghostDecideDirection () {
 }
 
 function isPacManAWinner () {
-  let boxElArray = $('.box');
+  let boxElArray = document.querySelectorAll('.box');
   for (let i = 0; i < boxElArray.length; i++){
     if (boxElArray[i].innerHTML === '.')
     return false;
@@ -414,7 +423,8 @@ function pacManHit (ghost) {
 
 function ghostHasBeenEaten(ghost) {
    let index = ghostArray.indexOf(ghost);
-   $(ghostArrayDivs[index]).css({'background-color':'rgba(255,255,255,.1', 'border':'1px solid white'});
+   ghostArrayDivs[index].style.backgroundColor = 'rgba(255,255,255,.1';
+   ghostArrayDivs[index].style.border = '1px solid white';
 }
 
 
